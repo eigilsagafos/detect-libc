@@ -128,10 +128,15 @@ test('linux - glibc family detected via interpreter', async (t) => {
 
   const libc = proxyquire('../', {
     './process': {
-      isLinux: () => true
+      isLinux: () => true,
+      getReport: () => ({})
     },
     './elf': {
       interpreterPath: () => '/lib64/ld-linux-x86-64.so.2'
+    },
+    './filesystem': {
+      readFile: () => Promise.resolve(Buffer.from('test')),
+      readFileSync: () => Buffer.from('test')
     }
   });
 
@@ -144,10 +149,15 @@ test('linux - musl family detected via interpreter', async (t) => {
 
   const libc = proxyquire('../', {
     './process': {
-      isLinux: () => true
+      isLinux: () => true,
+      getReport: () => ({})
     },
     './elf': {
       interpreterPath: () => '/lib/ld-musl-x86_64.so.1'
+    },
+    './filesystem': {
+      readFile: () => Promise.resolve(Buffer.from('test')),
+      readFileSync: () => Buffer.from('test')
     }
   });
 
@@ -195,10 +205,15 @@ test('linux - musl familySync detected via interpreter', (t) => {
 
   const libc = proxyquire('../', {
     './process': {
-      isLinux: () => true
+      isLinux: () => true,
+      getReport: () => ({})
     },
     './elf': {
       interpreterPath: () => '/lib/ld-musl-x86_64.so.1'
+    },
+    './filesystem': {
+      readFile: () => Promise.resolve(Buffer.from('test')),
+      readFileSync: () => Buffer.from('test')
     }
   });
 
